@@ -1,0 +1,17 @@
+# Session state and logs (ephemeral)
+production/session-state/
+production/session-logs/
+
+# Local settings
+*.local.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/

@@ -1,0 +1,261 @@
+# Workflow Catalog
+# Used by /help and /project-stage-detect to determine where a user is and what comes next.
+#
+# Artifact checks:
+#   glob: file glob pattern — complete if ≥1 file matches (or min_count)
+#   pattern: text pattern that must appear in the file (checked after glob)
+#   min_count: minimum matching files required (default: 1)
+#   note: human-readable fallback when completion can't be auto-detected
+#
+# required: true → blocks progression to next phase (shown as REQUIRED)
+# required: false → optional enhancement (shown as OPTIONAL)
+# repeatable: true → runs multiple times (one per volume, chapter, etc.)
+#
+# Phase gates (/gate-check): verdicts are ADVISORY — they guide the decision
+# but never hard-block advancement. The user always decides whether to proceed.
+
+phases:
+
+  concept:
+    label: "概念确立"
+    description: "将创意发展为完整的小说概念文档"
+    next_phase: structure-design
+    steps:
+      - id: brainstorm
+        name: "创意脑暴"
+        command: /brainstorm
+        required: false
+        description: "探索小说创意：题材、消费点、核心冲突、卖点、异常局面"
+
+      - id: concept-plan
+        name: "前置规划"
+        command: /concept-plan
+        required: true
+        artifact:
+          glob: "design/novel/concept.md"
+        description: "将简介压成题材、hook、premise、故事引擎、长度判断"
+
+      - id: pillars
+        name: "核心支柱"
+        required: true
+        artifact:
+          glob: "design/novel/pillars.md"
+        description: "确立3-5个创作支柱+反支柱，带设计测试"
+
+      - id: concept-review
+        name: "概念审查"
+        command: /gate-check concept
+        required: false
+        description: "由 creative-director 审查概念完整性和吸引力（推荐在进入下一阶段前完成）"
+
+  structure-design:
+    label: "结构设计"
+    description: "设计世界观、人物档案、总大纲、分卷大纲"
+    next_phase: writing-setup
+    steps:
+      - id: worldbuilding
+        name: "世界观圣经"
+        required: true
+        artifact:
+          glob: "design/novel/worldbuilding/rules.md"
+        description: "构建世界规则、势力、地点、时间线"
+
+      - id: characters
+        name: "人物档案"
+        required: true
+        artifact:
+          glob: "design/novel/characters/*.md"
+          min_count: 2
+        description: "创建主角+至少1个关键配角/反派的完整档案"
+
+      - id: volume-outline
+        name: "分卷大纲"
+        command: /volume-outline
+        required: true
+        artifact:
+          glob: "outlines/volume-01-outline.md"
+        description: "黄金三章、分卷、前10-20章章纲、卷末兑现"
+
+      - id: structure-review
+        name: "结构审查"
+        command: /gate-check structure
+        required: false
+        description: "由 story-architect 审查结构完整性和可持续性"
+
+  writing-setup:
+    label: "写作准备"
+    description: "章纲模板、风格指南、审查模式设定"
+    next_phase: opening
+    steps:
+      - id: style-guide
+        name: "风格指南"
+        required: false
+        artifact:
+          note: "可选文件 design/novel/style-guide.md — 记录叙事视角、时态、语感偏好"
+        description: "确立叙事视角（第一/第三人称）、时态、语感偏好、对话风格"
+
+      - id: chapter-templates
+        name: "章纲模板"
+        required: true
+        artifact:
+          glob: "outlines/chapter-outlines/vol01-chapter-*.md"
+          min_count: 3
+        description: "至少完成前3章的章纲（黄金三章）"
+
+      - id: setup-check
+        name: "准备检查"
+        command: /project-stage-detect
+        required: false
+        description: "检测项目准备状态，确认可以进入开篇写作"
+
+  opening:
+    label: "开篇试写"
+    description: "黄金三章正文、开篇审查、风格校准"
+    next_phase: production
+    steps:
+      - id: opening-chapter
+        name: "开篇写作"
+        command: /opening
+        required: true
+        artifact:
+          glob: "manuscript/volume-01/chapter-001.md"
+        description: "前300-3000字成交：抓手、卖点、异常局面、主角亮相"
+
+      - id: opening-review
+        name: "开篇审查"
+        command: /review-chapter
+        required: true
+        description: "审查开篇的吸引力、卖点呈现、主角亮相"
+
+      - id: chapter-02
+        name: "第二章"
+        command: /write-chapter 1 2
+        required: true
+        artifact:
+          glob: "manuscript/volume-01/chapter-002.md"
+        description: "延续开篇张力，推进第一冲突"
+
+      - id: chapter-03
+        name: "第三章"
+        command: /write-chapter 1 3
+        required: true
+        artifact:
+          glob: "manuscript/volume-01/chapter-003.md"
+        description: "完成黄金三章，确立追更理由"
+
+      - id: opening-gate
+        name: "开篇门检查"
+        command: /gate-check opening
+        required: false
+        description: "由 creative-director 和 story-architect 联合审查开篇质量"
+
+  production:
+    label: "批量生产"
+    description: "逐章写作、完稿审查、里程碑追踪"
+    next_phase: polish
+    steps:
+      - id: sprint-plan
+        name: "创作冲刺"
+        command: /sprint-plan
+        required: false
+        artifact:
+          glob: "production/sprints/sprint-*.md"
+        description: "规划创作冲刺（如：本周完成第4-10章）"
+
+      - id: write-chapter
+        name: "逐章写作"
+        command: /write-chapter
+        required: true
+        repeatable: true
+        artifact:
+          note: "manuscript/volume-*/chapter-*.md — 每完成一章即产生一个文件"
+        description: "根据章纲生成完整章节。整合剧情逻辑+人物一致性+转场+对白+章末收束"
+
+      - id: review-chapter
+        name: "完稿审查"
+        command: /review-chapter
+        required: true
+        repeatable: true
+        description: "每章写完强制走六种一致性检查"
+
+      - id: fix-issues
+        name: "问题修复"
+        command: "/revise-plot /revise-character /revise-dialogue /revise-transition"
+        required: false
+        repeatable: true
+        description: "根据审查结果，路由到对应专家修复"
+
+      - id: milestone-review
+        name: "里程碑回顾"
+        command: /milestone-review
+        required: false
+        repeatable: true
+        description: "每完成一个卷或关键节点，回顾进度和质量"
+
+      - id: production-gate
+        name: "生产门检查"
+        command: /gate-check production
+        required: false
+        description: "由 production-editor 检查进度和里程碑达成情况"
+
+  polish:
+    label: "精修打磨"
+    description: "全稿去AI味、一致性复查、节奏优化"
+    next_phase: release
+    steps:
+      - id: polish-chapters
+        name: "单章精修"
+        command: /polish-chapter
+        required: false
+        repeatable: true
+        artifact:
+          note: "逐章或批量运行 /polish-chapter"
+        description: "去AI味、节奏优化、文风统一"
+
+      - id: consistency-check
+        name: "全稿一致性复查"
+        command: /review-chapter
+        required: false
+        repeatable: true
+        artifact:
+          note: "对所有章节进行一致性复查"
+        description: "六种一致性统一复查全稿"
+
+      - id: plot-audit
+        name: "剧情逻辑审计"
+        command: /revise-plot
+        required: false
+        description: "检查长线伏笔回收、因果链完整性"
+
+      - id: character-audit
+        name: "人物弧光审计"
+        command: /revise-character
+        required: false
+        description: "检查人物目标连续性、弧光完成度"
+
+      - id: polish-gate
+        name: "精修门检查"
+        command: /gate-check polish
+        required: false
+        description: "由 creative-director 和 style-director 联合审查全稿质量"
+
+  release:
+    label: "发布交付"
+    description: "最终审查、导出、发布检查"
+    next_phase: null
+    steps:
+      - id: final-review
+        name: "最终审查"
+        command: /gate-check release
+        required: true
+        description: "全稿最终审查，确认无遗留问题"
+
+      - id: export
+        name: "导出"
+        required: false
+        description: "按平台要求导出（起点/晋江/番茄等格式）"
+
+      - id: release-notes
+        name: "发布说明"
+        required: false
+        description: "生成发布说明、简介、标签"
