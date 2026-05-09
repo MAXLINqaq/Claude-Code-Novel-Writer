@@ -71,6 +71,23 @@ manuscript/
 
 用户自行维护的参考资料、灵感素材、竞品分析等。
 
+## `archives/` — 完结小说归档
+
+已完结小说的完整归档。每个子目录是一部完结小说，包含其设计稿、大纲、正文、审查记录等全部产出。
+
+```
+archives/
+├── <小说名>/
+│   ├── design/novel/
+│   ├── manuscript/
+│   ├── outlines/
+│   ├── production/
+│   └── references/
+└── ...
+```
+
+归档通过 `/archive-novel` 技能执行。
+
 ## 文件分工原则
 
 - **设计文档** (`design/`) 是"蓝图"，回答"要写什么"

@@ -259,7 +259,7 @@ phases:
   release:
     label: "发布交付"
     description: "最终审查、导出、发布检查"
-    next_phase: null
+    next_phase: archive
     steps:
       - id: final-review
         name: "最终审查"
@@ -276,3 +276,16 @@ phases:
         name: "发布说明"
         required: false
         description: "生成发布说明、简介、标签"
+
+  archive:
+    label: "完结归档"
+    description: "将已完结小说的所有产出归档，清理项目为新小说做准备"
+    next_phase: concept
+    steps:
+      - id: archive-novel
+        name: "完结归档"
+        command: /archive-novel
+        required: false
+        artifact:
+          glob: "archives/*/design/novel/concept.md"
+        description: "将设计稿、大纲、正文、审查记录等归档至 archives/，重建空目录结构，准备开始新小说"

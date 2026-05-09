@@ -15,9 +15,10 @@ allowed-tools: Read, Glob, Grep, AskUserQuestion
    - `outlines/*.md` — 大纲阶段
    - `manuscript/volume-*/chapter-*.md` — 写作阶段
    - `production/reviews/*.md` — 审查阶段
+   - `archives/*/` — 已有归档（可开始新小说）
 
 2. **确定当前阶段**：
-   - 概念确立 → 结构设计 → 写作准备 → 开篇试写 → 批量生产 → 精修打磨 → 发布交付
+   - 概念确立 → 结构设计 → 写作准备 → 开篇试写 → 批量生产 → 精修打磨 → 发布交付 → 完结归档
 
 3. **检测缺失文档**：
    - 哪些关键文档缺失？

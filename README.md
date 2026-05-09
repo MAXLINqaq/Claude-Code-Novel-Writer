@@ -25,6 +25,7 @@
 | 开篇试写 | `/opening` | 黄金三章 |
 | 批量生产 | `/write-chapter` → `/review-chapter` | 逐章写作+审查 |
 | 精修打磨 | `/polish-chapter` | 去AI味、风格统一 |
+| 完结归档 | `/archive-novel` | 归档全部产出，重置项目 |
 
 ## 智能体层级
 
@@ -39,7 +40,7 @@
 ├── CLAUDE.md              # 根级入口
 ├── .claude/
 │   ├── agents/            # 22个智能体
-│   ├── skills/            # 18个技能
+│   ├── skills/            # 19个技能
 │   ├── hooks/             # 7个自动化钩子
 │   ├── rules/             # 6个路径规则
 │   └── docs/              # 文档与11个模板
@@ -47,7 +48,8 @@
 ├── manuscript/            # 正文产出
 ├── outlines/              # 大纲
 ├── production/            # 生产管理（冲刺、里程碑、审查）
-└── references/            # 参考资料
+├── references/            # 参考资料
+└── archives/              # 已完结小说归档
 ```
 
 ## 设计参考

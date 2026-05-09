@@ -35,6 +35,7 @@ allowed-tools: Read, Glob, Grep, AskUserQuestion
 | 写章节 | `/write-chapter` |
 | 审查章节 | `/review-chapter` |
 | 精修章节 | `/polish-chapter` |
+| 归档完结小说 | `/archive-novel` |
 | 修复剧情逻辑 | `/revise-plot` |
 | 修复人物一致性 | `/revise-character` |
 | 检测项目状态 | `/project-stage-detect` |
