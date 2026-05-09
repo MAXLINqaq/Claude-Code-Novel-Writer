@@ -126,5 +126,5 @@ allowed-tools: Read, Glob, Grep, Write, Task, AskUserQuestion
 
 写入后建议下一步：
 1. `/concept-plan` — 深化概念为完整规划
-2. `/volume-outline` — 设计分卷和章纲
-3. `/opening` — 直接开始写开篇
+2. `/create-character` — 基于概念创建人物档案
+3. `/volume-outline` — 设计分卷和章纲

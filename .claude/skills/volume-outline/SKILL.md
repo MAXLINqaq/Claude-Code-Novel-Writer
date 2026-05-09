@@ -66,5 +66,6 @@ allowed-tools: Read, Glob, Grep, Write, Task, AskUserQuestion
 
 ### 下一步
 
-1. `/opening` — 开始写开篇
-2. `/write-chapter 1 1` — 直接开始写第一章（如果已有章纲）
+1. `/review-outline` — 审查大纲质量（推荐在写作前完成）
+2. `/opening` — 开始写开篇
+3. `/write-chapter 1 1` — 直接开始写第一章（如果已有章纲）

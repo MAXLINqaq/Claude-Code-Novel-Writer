@@ -53,9 +53,12 @@ allowed-tools: Read, Glob, Grep, Write, AskUserQuestion
    **概念阶段：**
    - `/brainstorm` — 探索创意
    - `/concept-plan` — 将创意结构化
+   **结构设计：**
+   - `/create-character` — 创建人物档案
    - `/volume-outline` — 设计分卷和章纲
-   - `/opening` — 写开篇
-   **生产阶段：** → 用 `/write-chapter` 逐章写作
+   - `/review-outline` — 审查大纲质量
+   **开篇：** → `/opening` — 写开篇
+   **生产阶段：** → 用 `/write-chapter` + `/review-chapter` 逐章写作+审查
 
 #### 如果 B: 有模糊想法
 

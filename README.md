@@ -21,10 +21,9 @@
 | 阶段 | 技能 | 说明 |
 |------|------|------|
 | 概念确立 | `/brainstorm` → `/concept-plan` | 从点子到完整概念 |
-| 结构设计 | `/volume-outline` | 分卷、章纲、伏笔系统 |
+| 结构设计 | `/create-character` → `/volume-outline` → `/review-outline` | 人物档案、分卷章纲、大纲审查 |
 | 开篇试写 | `/opening` | 黄金三章 |
-| 批量生产 | `/write-chapter` | 逐章写作 |
-| 完稿审查 | `/review-chapter` | 六种一致性检查 |
+| 批量生产 | `/write-chapter` → `/review-chapter` | 逐章写作+审查 |
 | 精修打磨 | `/polish-chapter` | 去AI味、风格统一 |
 
 ## 智能体层级
@@ -40,7 +39,7 @@
 ├── CLAUDE.md              # 根级入口
 ├── .claude/
 │   ├── agents/            # 22个智能体
-│   ├── skills/            # 16个技能
+│   ├── skills/            # 18个技能
 │   ├── hooks/             # 7个自动化钩子
 │   ├── rules/             # 6个路径规则
 │   └── docs/              # 文档与11个模板

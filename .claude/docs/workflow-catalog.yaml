@@ -68,6 +68,15 @@ phases:
           min_count: 2
         description: "创建主角+至少1个关键配角/反派的完整档案"
 
+      - id: create-character
+        name: "人物档案创建"
+        command: /create-character
+        required: true
+        artifact:
+          glob: "design/novel/characters/*.md"
+          min_count: 2
+        description: "基于五类连续性框架，交互式创建每个人物的完整档案（目标、情绪、关系、身体、声音）"
+
       - id: volume-outline
         name: "分卷大纲"
         command: /volume-outline
@@ -75,6 +84,14 @@ phases:
         artifact:
           glob: "outlines/volume-01-outline.md"
         description: "黄金三章、分卷、前10-20章章纲、卷末兑现"
+
+      - id: review-outline
+        name: "大纲审查"
+        command: /review-outline
+        required: false
+        artifact:
+          note: "审查大纲是否能跑通——无硬性文件产出，生成审查报告至 production/reviews/"
+        description: "七维审查：概念对齐、支柱合规、人物一致性、结构完整性、伏笔回收、视角分配、章末拉力（推荐在进入写作前完成）"
 
       - id: structure-review
         name: "结构审查"

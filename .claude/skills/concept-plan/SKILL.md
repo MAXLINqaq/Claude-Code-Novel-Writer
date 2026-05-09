@@ -64,6 +64,6 @@ allowed-tools: Read, Glob, Grep, Write, Task, AskUserQuestion
 
 ### 下一步建议
 
-1. `/volume-outline` — 设计分卷和章纲
-2. `/opening` — 开始写开篇
-3. 运行 `/brainstorm` 如果概念需要进一步探索
+1. `/create-character` — 创建人物档案（推荐先做人物，再排章纲）
+2. `/volume-outline` — 设计分卷和章纲
+3. `/opening` — 直接开始写开篇（如果想先试写手感）
